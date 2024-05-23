@@ -23,8 +23,8 @@ def deleting_data(deleting_id: int)-> None:
     cursor.execute("DELETE FROM emp WHERE id = ?",delete_data)
 word = ''
 while word.lower() != 'exit':
-    print(f"Enter add to store new entry in database\nEnter list to see all the entries in the database")
-    print(f"Enter delete to delete a entry in database\nEnter exit to exit")
+    print(f"Enter 'add' to store new entry in database\nEnter 'list' to see all the entries in the database")
+    print(f"Enter 'delete' to delete a entry in database\nEnter 'exit' to exit from the program")
     word = input("Enter the function: ")
     match(word):
         case 'add':
