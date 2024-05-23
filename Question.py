@@ -41,6 +41,8 @@ while word.lower() != 'exit':
             listing_all_queries()
             deleting_id = int(input("Enter the id to be deleted: "))
             deleting_data(deleting_id)
+            print("Data deleted")
+            listing_all_queries()
         case 'exit':
             break
 sqliteconnection.close()
