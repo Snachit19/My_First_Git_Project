@@ -40,6 +40,7 @@ date_of_birth_label.grid(row=3,column=3)
 birthday_date_input = DateEntry(application,selectmode="day",\
                                 date_pattern="yyyy-mm-dd",width=15)
 birthday_date_input.grid(row=3,column=4)
+birthday_date_input._top_cal.overrideredirect(False)
 math_marks_label = tk.Label(application,text="Math marks:")
 math_marks_label.grid(row=3,column=5)
 math_marks_input = tk.Entry()
