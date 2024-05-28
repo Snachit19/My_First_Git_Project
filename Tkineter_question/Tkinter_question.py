@@ -2,9 +2,10 @@ import tkinter as tk
 from tkcalendar import DateEntry
 import tkinter.font as tkfont
 from sqlite_in_tkinter import insert_data
+from tkinter import ttk
 application = tk.Tk()
 application.title("Records of students")
-application.geometry("1425x250")
+application.geometry("1425x400")
 font_obj = tkfont.Font(size=24)
 add_student_label = tk.Label(application,text="Add new record:",font=font_obj)
 add_student_label.grid(column=0,row=0)
@@ -40,7 +41,6 @@ date_of_birth_label.grid(row=3,column=3)
 birthday_date_input = DateEntry(application,selectmode="day",\
                                 date_pattern="yyyy-mm-dd",width=15)
 birthday_date_input.grid(row=3,column=4)
-birthday_date_input._top_cal.overrideredirect(False)
 math_marks_label = tk.Label(application,text="Math marks:")
 math_marks_label.grid(row=3,column=5)
 math_marks_input = tk.Entry()
@@ -77,6 +77,40 @@ def get_student_info():
                           english_marks, computer_marks, average)
     print(input_database)
     insert_data(input_database)
+tree = ttk.Treeview(application)
+tree["columns"] = [ "Gender", "Address", "Phone-no", "Grade", \
+                   "Date-of-Birth", "Average_Marks"]
+tree.column("#0",width=150)
+tree.column("Gender",width=150)
+tree.column("Address",width=150)
+tree.column("Phone-no",width=150)
+tree.column("Grade",width=150)
+tree.column("Date-of-Birth",width=150)
+tree.column("Average_Marks",width=150)
+tree.heading("#0",text="Student Name")
+tree.heading("Gender",text="Gender")
+tree.heading("Address",text="Address")
+tree.heading("Phone-no",text="Phone-no")
+tree.heading("Grade",text="Grade")
+tree.heading("Date-of-Birth",text="Date-of-Birth")
+tree.heading("Average_Marks",text="Average-Marks")
+tree.grid(row=6,column=0,columnspan=8)
+def insert_table():
+    tree_student_name = add_student_name.get()
+    tree_gender = gender_var.get()
+    tree_address_got = address.get()
+    tree_phone_number = int(phone_num.get())
+    tree_grade = grade_value.get()
+    tree_birthday_date = birthday_date_input.get()
+    math_marks = int(math_marks_input.get())
+    science_marks = int(science_marks_input.get())
+    english_marks = int(english_marks_input.get())
+    computer_marks = int(computer_marks_input.get())
+    tree_average_marks = (math_marks + science_marks + english_marks + computer_marks) / 4
+    tree_tuple = (tree_gender, tree_address_got, tree_phone_number,\
+                  tree_grade, tree_birthday_date, tree_average_marks)
+    tree.insert(parent="",text=tree_student_name,index=tk.END,values=tree_tuple)
 submit_button = tk.Button(application,text="Submit information",command=get_student_info)
+submit_button = tk.Button(application,text="Submit information",command=insert_table)
 submit_button.grid(row=5,column=1)
 application.mainloop()
